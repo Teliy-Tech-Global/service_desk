@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Role } from '../auth/roles/roles.enum';
+import { Article } from 'src/knowledge-base/articles/article.entity';
 
 @Entity()
 export class User {
@@ -18,4 +19,7 @@ export class User {
     default: Role.User,
   })
   role: Role;
+
+  @OneToMany(() => Article, (article) => article.author)
+  articles: Article[];
 }
