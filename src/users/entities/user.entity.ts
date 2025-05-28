@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Role } from '../auth/roles/roles.enum';
+import { Role } from '../../auth/roles/roles.enum';
 import { Article } from 'src/knowledge-base/articles/article.entity';
 
 @Entity()
@@ -22,4 +22,10 @@ export class User {
 
   @OneToMany(() => Article, (article) => article.author)
   articles: Article[];
+
+  //Show relationship with tickets
+
+  //Show relationship with comment
+
+  //Show relationship with agent
 }

@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 import { OAuth2Strategy } from './strategies/oauth.strategy';
 import { SessionSerializer } from './session.serializer';
 import { UsersModule } from '../users/users.module';
-import { User } from '../users/user.entity';
+import { User } from '../users/entities/user.entity';
 
 @Module({
   imports: [

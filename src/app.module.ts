@@ -7,7 +7,7 @@ import { UsersModule } from './users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth/roles/roles.guard';
 import { SessionSerializer } from './auth/session.serializer';
-import { User } from './users/user.entity';
+import { User } from './users/entities/user.entity';
 import { KnowledgeBaseModule } from './knowledge-base/knowledge-base.module';
 
 @Module({

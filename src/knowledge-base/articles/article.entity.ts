@@ -1,6 +1,6 @@
 // article.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { User } from 'src/users/user.entity';
+import { User } from 'src/users/entities/user.entity';
 import { Category } from '../categories/category.entity';
 
 @Entity()
