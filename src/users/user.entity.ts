@@ -22,4 +22,10 @@ export class User {
 
   @OneToMany(() => Article, (article) => article.author)
   articles: Article[];
+
+  //Show relationship with tickets
+
+  //Show relationship with comment
+
+  //Show relationship with agent
 }
