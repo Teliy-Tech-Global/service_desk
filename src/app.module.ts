@@ -8,6 +8,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth/roles/roles.guard';
 import { SessionSerializer } from './auth/session.serializer';
 import { User } from './users/user.entity';
+import { Article } from './knowledge-base/articles/article.entity';
+import { Category } from './knowledge-base/categories/category.entity';
 import { KnowledgeBaseModule } from './knowledge-base/knowledge-base.module';
 
 @Module({
@@ -26,7 +28,7 @@ import { KnowledgeBaseModule } from './knowledge-base/knowledge-base.module';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [User], // or use glob pattern
+        entities: [User, Article, Category], // or use glob pattern
         synchronize: true, // disable in production
       }),
     }),

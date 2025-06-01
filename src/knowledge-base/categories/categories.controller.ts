@@ -16,7 +16,10 @@ import { Roles } from 'src/auth/roles/roles.decorator';
 import { RolesGuard } from 'src/auth/roles/roles.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { Role } from 'src/auth/roles/roles.enum';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Knowledge Base - Categories')
+@ApiBearerAuth('Bearer')
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 @Controller('api/categories')
 export class CategoriesController {

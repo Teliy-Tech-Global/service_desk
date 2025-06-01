@@ -18,7 +18,10 @@ import { RolesGuard } from '../auth/roles/roles.guard';
 import { Roles } from '../auth/roles/roles.decorator';
 import { Role } from '../auth/roles/roles.enum';
 import { Request } from 'express';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Users')
+@ApiBearerAuth('Bearer')
 @Controller('api/users')
 @UseGuards(AuthenticatedGuard, RolesGuard)
 export class UsersController {

@@ -15,6 +15,6 @@ import { User } from '../users/user.entity';
     TypeOrmModule.forFeature([User]), // ✅ Needed for UserRepository injection
   ],
   controllers: [AuthController],
-  providers: [AuthService, OAuth2Strategy, SessionSerializer], // ✅ Add serializer here
+  providers: [AuthService, OAuth2Strategy, SessionSerializer],
 })
 export class AuthModule {}
