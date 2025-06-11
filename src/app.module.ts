@@ -1,7 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm'; // 👈 Import TypeOrmModule
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { APP_GUARD } from '@nestjs/core';
+
+// Modules
 import { AgentsModule } from './agents/agents.module';
 import { KnowledgeBaseModule } from './knowledge-base/knowledge-base.module';
 import { CategoriesModule } from './categories/categories.module';
@@ -11,21 +15,33 @@ import { AuthModule } from './auth/auth.module';
 import { TicketsModule } from './tickets/tickets.module';
 import { CommentsModule } from './comments/comments.module';
 import { AttachementsModule } from './attachements/attachements.module';
-import { ConfigModule } from '@nestjs/config';
+
+// Guards and Serializers
+import { RolesGuard } from './auth/roles/roles.guard';
+import { SessionSerializer } from './auth/session.serializer';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST || 'localhost',
-      port: parseInt(process.env.DB_PORT || '5432', 10),
-      username: process.env.DB_USERNAME || 'postgres',
-      password: process.env.DB_PASSWORD || 'postgres',
-      database: process.env.DB_NAME || 'service_desk',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true, // Set to false in production!
+    // Load env variables globally
+    ConfigModule.forRoot({ isGlobal: true }),
+
+    // Async TypeORM config with glob pattern for entities
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        type: 'postgres',
+        host: config.get('DB_HOST'),
+        port: config.get<number>('DB_PORT'),
+        username: config.get('DB_USERNAME'),
+        password: config.get('DB_PASSWORD'),
+        database: config.get('DB_NAME'),
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: true, // THIS IS ONLY FOR DEVELOPMENT, DO NOT USE IN PRODUCTION
+      }),
     }),
 
+    // All THE APP MODULES
     AgentsModule,
     KnowledgeBaseModule,
     CategoriesModule,
@@ -37,6 +53,13 @@ import { ConfigModule } from '@nestjs/config';
     AttachementsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    SessionSerializer,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard, // apply globally
+    },
+  ],
 })
 export class AppModule {}
