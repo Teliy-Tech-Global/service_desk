@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import { Controller } from '@nestjs/common';
-
-@Controller('users')
-export class UsersController {}
-=======
 import {
   Controller,
   Post,
@@ -64,4 +58,3 @@ export class UsersController {
     return this.usersService.remove(+id);
   }
 }
->>>>>>> Faith_service_desk

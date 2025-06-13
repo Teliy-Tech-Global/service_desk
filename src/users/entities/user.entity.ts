@@ -23,9 +23,15 @@ export class User {
   @OneToMany(() => Article, (article) => article.author)
   articles: Article[];
 
-  //Show relationship with tickets
+  // One user can create multiple tickets (support requests)
+  @OneToMany(() => Ticket, (ticket) => ticket.user)
+  tickets: Ticket[];
 
-  //Show relationship with comment
+  // One user can write multiple comments
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 
-  //Show relationship with agent
+  // One user can be associated with one agent profile (if this user is also an agent)
+  @OneToMany(() => Agent, (agent) => agent.user)
+  agentProfile: Agent[];
 }

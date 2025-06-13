@@ -1,22 +1,18 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
+  PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
-import { Agent } from 'src/agents/entities/agent.entity';
 import { Comment } from 'src/comments/entities/comment.entity';
-
-export enum TicketStatus {
-  OPEN = 'open',
-  IN_PROGRESS = 'in_progress',
-  RESOLVED = 'resolved',
-  CLOSED = 'closed',
-}
+import { Attachment } from 'src/attachments/entities/attachment.entity';
+import { TicketStatus } from '../enums/ticket-status.enum';
+import { TicketPriority } from '../enums/ticket-priority.enum';
+import { Agent } from 'http';
 
 @Entity()
 export class Ticket {
@@ -24,7 +20,7 @@ export class Ticket {
   id: number;
 
   @Column()
-  subject: string;
+  title: string;
 
   @Column('text')
   description: string;
@@ -32,21 +28,39 @@ export class Ticket {
   @Column({ type: 'enum', enum: TicketStatus, default: TicketStatus.OPEN })
   status: TicketStatus;
 
-  // The user who created the ticket
-  @ManyToOne(() => User, (user) => user.tickets)
-  user: User;
+  @Column({
+    type: 'enum',
+    enum: TicketPriority,
+    default: TicketPriority.MEDIUM,
+  })
+  priority: TicketPriority;
 
-  // The agent assigned to the ticket
-  @ManyToOne(() => Agent, (agent) => agent.tickets, { nullable: true })
-  agent: Agent;
+  @CreateDateColumn()
+  created_at: Date;
 
-  // Ticket can have many comments
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @ManyToOne(() => User, (user) => user.tickets, { eager: true })
+  reporter: User;
+
+  @ManyToOne(() => Agent, (agent) => agent.tickets, {
+    nullable: true,
+    eager: true,
+  })
+  assigned_to: User;
+
+  @Column({ nullable: true })
+  category: string;
+
+  @Column('text', { nullable: true })
+  tags: string;
+
   @OneToMany(() => Comment, (comment) => comment.ticket)
   comments: Comment[];
 
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @OneToMany(() => Attachment, (attachment) => attachment.ticket, {})
+  attachments: Attachment[];
 }
+// This Ticket entity represents a support ticket in the system.
+// It includes fields for the ticket's title, description, status, priority, creation and update timestamps,

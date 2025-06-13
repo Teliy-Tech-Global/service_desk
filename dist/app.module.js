@@ -8,9 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
+const core_1 = require("@nestjs/core");
 const agents_module_1 = require("./agents/agents.module");
 const knowledge_base_module_1 = require("./knowledge-base/knowledge-base.module");
 const categories_module_1 = require("./categories/categories.module");
@@ -20,21 +22,28 @@ const auth_module_1 = require("./auth/auth.module");
 const tickets_module_1 = require("./tickets/tickets.module");
 const comments_module_1 = require("./comments/comments.module");
 const attachements_module_1 = require("./attachements/attachements.module");
+const roles_guard_1 = require("./auth/roles/roles.guard");
+const session_serializer_1 = require("./auth/session.serializer");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot({
-                type: 'postgres',
-                host: process.env.DB_HOST || 'localhost',
-                port: parseInt(process.env.DB_PORT || '5432', 10),
-                username: process.env.DB_USERNAME || 'postgres',
-                password: process.env.DB_PASSWORD || 'postgres',
-                database: process.env.DB_NAME || 'service_desk',
-                entities: [__dirname + '/**/*.entity{.ts,.js}'],
-                synchronize: true,
+            config_1.ConfigModule.forRoot({ isGlobal: true }),
+            typeorm_1.TypeOrmModule.forRootAsync({
+                imports: [config_1.ConfigModule],
+                inject: [config_1.ConfigService],
+                useFactory: (config) => ({
+                    type: 'postgres',
+                    host: config.get('DB_HOST'),
+                    port: config.get('DB_PORT'),
+                    username: config.get('DB_USERNAME'),
+                    password: config.get('DB_PASSWORD'),
+                    database: config.get('DB_NAME'),
+                    entities: [__dirname + '/**/*.entity{.ts,.js}'],
+                    synchronize: true,
+                }),
             }),
             agents_module_1.AgentsModule,
             knowledge_base_module_1.KnowledgeBaseModule,
@@ -47,7 +56,14 @@ exports.AppModule = AppModule = __decorate([
             attachements_module_1.AttachementsModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [
+            app_service_1.AppService,
+            session_serializer_1.SessionSerializer,
+            {
+                provide: core_1.APP_GUARD,
+                useClass: roles_guard_1.RolesGuard,
+            },
+        ],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

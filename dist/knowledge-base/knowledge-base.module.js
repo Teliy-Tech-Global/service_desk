@@ -8,15 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.KnowledgeBaseModule = void 0;
 const common_1 = require("@nestjs/common");
-const knowledge_base_controller_1 = require("./knowledge-base.controller");
-const knowledge_base_service_1 = require("./knowledge-base.service");
+const typeorm_1 = require("@nestjs/typeorm");
+const articles_controller_1 = require("./articles/articles.controller");
+const articles_service_1 = require("./articles/articles.service");
+const categories_controller_1 = require("./categories/categories.controller");
+const categories_service_1 = require("./categories/categories.service");
+const article_entity_1 = require("./articles/article.entity");
+const category_entity_1 = require("./categories/category.entity");
 let KnowledgeBaseModule = class KnowledgeBaseModule {
 };
 exports.KnowledgeBaseModule = KnowledgeBaseModule;
 exports.KnowledgeBaseModule = KnowledgeBaseModule = __decorate([
     (0, common_1.Module)({
-        controllers: [knowledge_base_controller_1.KnowledgeBaseController],
-        providers: [knowledge_base_service_1.KnowledgeBaseService]
+        imports: [typeorm_1.TypeOrmModule.forFeature([article_entity_1.Article, category_entity_1.Category])],
+        controllers: [articles_controller_1.ArticlesController, categories_controller_1.CategoriesController],
+        providers: [articles_service_1.ArticlesService, categories_service_1.CategoriesService],
     })
 ], KnowledgeBaseModule);
 //# sourceMappingURL=knowledge-base.module.js.map

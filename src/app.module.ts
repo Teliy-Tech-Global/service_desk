@@ -14,7 +14,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { TicketsModule } from './tickets/tickets.module';
 import { CommentsModule } from './comments/comments.module';
-import { AttachementsModule } from './attachements/attachements.module';
+import { AttachementsModule } from './attachements/attachments.module';
 
 // Guards and Serializers
 import { RolesGuard } from './auth/roles/roles.guard';
