@@ -8,13 +8,13 @@ import { APP_GUARD } from '@nestjs/core';
 // Modules
 import { AgentsModule } from './agents/agents.module';
 import { KnowledgeBaseModule } from './knowledge-base/knowledge-base.module';
-import { CategoriesModule } from './categories/categories.module';
+// import { CategoriesModule } from './categories/categories.module';
 import { ReportsModule } from './reports/reports.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { TicketsModule } from './tickets/tickets.module';
+import { TicketModule } from './tickets/tickets.module';
 import { CommentsModule } from './comments/comments.module';
-import { AttachementsModule } from './attachements/attachments.module';
+import { AttachmentsModule } from './attachments/attachments.module';
 
 // Guards and Serializers
 import { RolesGuard } from './auth/roles/roles.guard';
@@ -48,9 +48,9 @@ import { SessionSerializer } from './auth/session.serializer';
     ReportsModule,
     UsersModule,
     AuthModule,
-    TicketsModule,
+    TicketModule,
     CommentsModule,
-    AttachementsModule,
+    AttachmentsModule,
   ],
   controllers: [AppController],
   providers: [

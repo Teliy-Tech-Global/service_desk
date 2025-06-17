@@ -8,15 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommentsModule = void 0;
 const common_1 = require("@nestjs/common");
-const comments_controller_1 = require("./comments.controller");
+const typeorm_1 = require("@nestjs/typeorm");
 const comments_service_1 = require("./comments.service");
+const comments_controller_1 = require("./comments.controller");
+const comment_entity_1 = require("./entities/comment.entity");
+const ticket_entity_1 = require("../tickets/entities/ticket.entity");
+const user_entity_1 = require("../users/entities/user.entity");
 let CommentsModule = class CommentsModule {
 };
 exports.CommentsModule = CommentsModule;
 exports.CommentsModule = CommentsModule = __decorate([
     (0, common_1.Module)({
+        imports: [typeorm_1.TypeOrmModule.forFeature([comment_entity_1.Comment, ticket_entity_1.Ticket, user_entity_1.User])],
         controllers: [comments_controller_1.CommentsController],
-        providers: [comments_service_1.CommentsService]
+        providers: [comments_service_1.CommentsService],
     })
 ], CommentsModule);
 //# sourceMappingURL=comments.module.js.map

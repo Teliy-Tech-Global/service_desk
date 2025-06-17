@@ -1,2 +1,2 @@
-export declare class TicketsModule {
+export declare class TicketModule {
 }

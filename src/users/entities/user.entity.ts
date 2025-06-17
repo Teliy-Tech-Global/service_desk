@@ -1,6 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Role } from '../../auth/roles/roles.enum';
 import { Article } from 'src/knowledge-base/articles/article.entity';
+import { Ticket } from 'src/tickets/entities/ticket.entity';
+import { Agent } from 'src/agents/entities/agent.entity';
 
 @Entity()
 export class User {
@@ -28,10 +30,12 @@ export class User {
   tickets: Ticket[];
 
   // One user can write multiple comments
-  @OneToMany(() => Comment, (comment) => comment.user)
-  comments: Comment[];
+  // @OneToMany(() => Comment, (comment) => comment.user)
+  // comments: Comment[];
 
   // One user can be associated with one agent profile (if this user is also an agent)
   @OneToMany(() => Agent, (agent) => agent.user)
   agentProfile: Agent[];
+  comments: any;
+  assignedTickets: any;
 }

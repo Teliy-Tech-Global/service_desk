@@ -12,70 +12,70 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TicketsController = void 0;
+exports.TicketController = void 0;
 const common_1 = require("@nestjs/common");
 const tickets_service_1 = require("./tickets.service");
 const create_ticket_dto_1 = require("./dto/create-ticket.dto");
 const update_ticket_dto_1 = require("./dto/update-ticket.dto");
-let TicketsController = class TicketsController {
-    ticketsService;
-    constructor(ticketsService) {
-        this.ticketsService = ticketsService;
+let TicketController = class TicketController {
+    ticketService;
+    constructor(ticketService) {
+        this.ticketService = ticketService;
     }
     create(dto) {
-        return this.ticketsService.create(dto);
+        return this.ticketService.create(dto);
     }
     findAll() {
-        return this.ticketsService.findAll();
+        return this.ticketService.findAll();
     }
     findOne(id) {
-        return this.ticketsService.findOne(+id);
+        return this.ticketService.findOne(+id);
     }
     update(id, dto) {
-        return this.ticketsService.update(+id, dto);
+        return this.ticketService.update(+id, dto);
     }
     remove(id) {
-        return this.ticketsService.remove(+id);
+        return this.ticketService.remove(+id);
     }
 };
-exports.TicketsController = TicketsController;
+exports.TicketController = TicketController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_ticket_dto_1.CreateTicketDto]),
     __metadata("design:returntype", void 0)
-], TicketsController.prototype, "create", null);
+], TicketController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], TicketsController.prototype, "findAll", null);
+], TicketController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], TicketsController.prototype, "findOne", null);
+], TicketController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
+    (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_ticket_dto_1.UpdateTicketDto]),
     __metadata("design:returntype", void 0)
-], TicketsController.prototype, "update", null);
+], TicketController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], TicketsController.prototype, "remove", null);
-exports.TicketsController = TicketsController = __decorate([
-    (0, common_1.Controller)('tickets'),
-    __metadata("design:paramtypes", [tickets_service_1.TicketsService])
-], TicketsController);
+], TicketController.prototype, "remove", null);
+exports.TicketController = TicketController = __decorate([
+    (0, common_1.Controller)('api/tickets'),
+    __metadata("design:paramtypes", [tickets_service_1.TicketService])
+], TicketController);
 //# sourceMappingURL=tickets.controller.js.map

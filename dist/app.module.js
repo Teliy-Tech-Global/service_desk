@@ -15,13 +15,12 @@ const app_service_1 = require("./app.service");
 const core_1 = require("@nestjs/core");
 const agents_module_1 = require("./agents/agents.module");
 const knowledge_base_module_1 = require("./knowledge-base/knowledge-base.module");
-const categories_module_1 = require("./categories/categories.module");
 const reports_module_1 = require("./reports/reports.module");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
 const tickets_module_1 = require("./tickets/tickets.module");
 const comments_module_1 = require("./comments/comments.module");
-const attachements_module_1 = require("./attachements/attachements.module");
+const attachments_module_1 = require("./attachments/attachments.module");
 const roles_guard_1 = require("./auth/roles/roles.guard");
 const session_serializer_1 = require("./auth/session.serializer");
 let AppModule = class AppModule {
@@ -47,13 +46,13 @@ exports.AppModule = AppModule = __decorate([
             }),
             agents_module_1.AgentsModule,
             knowledge_base_module_1.KnowledgeBaseModule,
-            categories_module_1.CategoriesModule,
+            CategoriesModule,
             reports_module_1.ReportsModule,
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
-            tickets_module_1.TicketsModule,
+            tickets_module_1.TicketModule,
             comments_module_1.CommentsModule,
-            attachements_module_1.AttachementsModule,
+            attachments_module_1.AttachmentsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [

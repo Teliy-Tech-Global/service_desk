@@ -12,7 +12,7 @@ import { Comment } from 'src/comments/entities/comment.entity';
 import { Attachment } from 'src/attachments/entities/attachment.entity';
 import { TicketStatus } from '../enums/ticket-status.enum';
 import { TicketPriority } from '../enums/ticket-priority.enum';
-import { Agent } from 'http';
+// import { Agent } from 'http';
 
 @Entity()
 export class Ticket {
@@ -44,7 +44,7 @@ export class Ticket {
   @ManyToOne(() => User, (user) => user.tickets, { eager: true })
   reporter: User;
 
-  @ManyToOne(() => Agent, (agent) => agent.tickets, {
+  @ManyToOne(() => User, (user) => user.assignedTickets, {
     nullable: true,
     eager: true,
   })
@@ -61,6 +61,7 @@ export class Ticket {
 
   @OneToMany(() => Attachment, (attachment) => attachment.ticket, {})
   attachments: Attachment[];
+  user: any;
 }
 // This Ticket entity represents a support ticket in the system.
 // It includes fields for the ticket's title, description, status, priority, creation and update timestamps,

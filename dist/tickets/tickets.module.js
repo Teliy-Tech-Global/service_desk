@@ -6,20 +6,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TicketsModule = void 0;
+exports.TicketModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const ticket_entity_1 = require("./entities/ticket.entity");
 const tickets_service_1 = require("./tickets.service");
 const tickets_controller_1 = require("./tickets.controller");
-const ticket_entity_1 = require("./entities/ticket.entity");
-let TicketsModule = class TicketsModule {
+let TicketModule = class TicketModule {
 };
-exports.TicketsModule = TicketsModule;
-exports.TicketsModule = TicketsModule = __decorate([
+exports.TicketModule = TicketModule;
+exports.TicketModule = TicketModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([ticket_entity_1.Ticket])],
-        controllers: [tickets_controller_1.TicketsController],
-        providers: [tickets_service_1.TicketsService],
+        controllers: [tickets_controller_1.TicketController],
+        providers: [tickets_service_1.TicketService],
+        exports: [tickets_service_1.TicketService],
     })
-], TicketsModule);
+], TicketModule);
 //# sourceMappingURL=tickets.module.js.map

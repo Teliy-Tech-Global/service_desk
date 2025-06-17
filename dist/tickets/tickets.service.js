@@ -12,43 +12,41 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TicketsService = void 0;
+exports.TicketService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const ticket_entity_1 = require("./entities/ticket.entity");
-let TicketsService = class TicketsService {
-    ticketRepository;
-    constructor(ticketRepository) {
-        this.ticketRepository = ticketRepository;
+let TicketService = class TicketService {
+    ticketRepo;
+    constructor(ticketRepo) {
+        this.ticketRepo = ticketRepo;
     }
-    async create(createTicketDto) {
-        const ticket = this.ticketRepository.create(createTicketDto);
-        return this.ticketRepository.save(ticket);
+    async create(createDto) {
+        const ticket = this.ticketRepo.create(createDto);
+        return this.ticketRepo.save(ticket);
     }
-    async findAll() {
-        return this.ticketRepository.find({
-            relations: ['user', 'agent', 'comments'],
-        });
+    findAll() {
+        return this.ticketRepo.find();
     }
     async findOne(id) {
-        return this.ticketRepository.findOne({
-            where: { id },
-            relations: ['user', 'agent', 'comments'],
-        });
+        const ticket = await this.ticketRepo.findOne({ where: { id } });
+        if (!ticket)
+            throw new common_1.NotFoundException('Ticket not found');
+        return ticket;
     }
     async update(id, updateDto) {
-        await this.ticketRepository.update(id, updateDto);
+        await this.ticketRepo.update(id, updateDto);
         return this.findOne(id);
     }
     async remove(id) {
-        await this.ticketRepository.delete(id);
+        await this.ticketRepo.delete(id);
     }
 };
-exports.TicketsService = TicketsService;
-exports.TicketsService = TicketsService = __decorate([
+exports.TicketService = TicketService;
+exports.TicketService = TicketService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(ticket_entity_1.Ticket)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
-], TicketsService);
+], TicketService);
 //# sourceMappingURL=tickets.service.js.map

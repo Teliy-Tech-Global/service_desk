@@ -4,7 +4,9 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Ticket } from '../../tickets/entities/ticket.entity';
 
 @Entity('agents')
 export class Agent {
@@ -22,4 +24,8 @@ export class Agent {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Ticket, (ticket) => ticket.assigned_to)
+  tickets: Ticket[];
+  user: any;
 }

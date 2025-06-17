@@ -12,10 +12,10 @@ const passport_1 = require("@nestjs/passport");
 const typeorm_1 = require("@nestjs/typeorm");
 const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
-const oauth_strategy_1 = require("./strategies/oauth.strategy");
 const session_serializer_1 = require("./session.serializer");
 const users_module_1 = require("../users/users.module");
 const user_entity_1 = require("../users/entities/user.entity");
+const passport_oauth2_1 = require("passport-oauth2");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -27,7 +27,7 @@ exports.AuthModule = AuthModule = __decorate([
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]),
         ],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService, oauth_strategy_1.OAuth2Strategy, session_serializer_1.SessionSerializer],
+        providers: [auth_service_1.AuthService, passport_oauth2_1.default, session_serializer_1.SessionSerializer],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map
