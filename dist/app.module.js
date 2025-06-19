@@ -46,7 +46,6 @@ exports.AppModule = AppModule = __decorate([
             }),
             agents_module_1.AgentsModule,
             knowledge_base_module_1.KnowledgeBaseModule,
-            CategoriesModule,
             reports_module_1.ReportsModule,
             users_module_1.UsersModule,
             auth_module_1.AuthModule,

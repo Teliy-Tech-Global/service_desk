@@ -6,59 +6,37 @@ import {
   Param,
   Put,
   Delete,
-  UseGuards,
-  Req,
-  ParseIntPipe,
 } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
-import { AuthGuard } from '@nestjs/passport';
-import { RolesGuard } from 'src/auth/roles/roles.guard';
-import { Roles } from 'src/auth/roles/roles.decorator';
-import { Role } from 'src/auth/roles/roles.enum';
-import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 
-@ApiTags('Articles')
 @Controller('api/articles')
 export class ArticlesController {
-  constructor(private readonly articlesService: ArticlesService) {}
-
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(Role.Admin, Role.Agent)
-  @Post()
-  @ApiBearerAuth()
-  create(@Body() dto: CreateArticleDto, @Req() req) {
-    return this.articlesService.create(dto, req.user);
-  }
+  constructor(private readonly service: ArticlesService) {}
 
   @Get()
   findAll() {
-    return this.articlesService.findAll();
+    return this.service.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.articlesService.findOne(id);
+  findOne(@Param('id') id: string) {
+    return this.service.findOne(+id);
   }
 
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(Role.Admin, Role.Agent)
+  @Post()
+  create(@Body() dto: CreateArticleDto) {
+    return this.service.create(dto);
+  }
+
   @Put(':id')
-  @ApiBearerAuth()
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() dto: UpdateArticleDto,
-    @Req() req,
-  ) {
-    return this.articlesService.update(id, dto, req.user);
+  update(@Param('id') id: string, @Body() dto: UpdateArticleDto) {
+    return this.service.update(+id, dto);
   }
 
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(Role.Admin)
   @Delete(':id')
-  @ApiBearerAuth()
-  remove(@Param('id', ParseIntPipe) id: number, @Req() req) {
-    return this.articlesService.remove(id, req.user);
+  delete(@Param('id') id: string) {
+    return this.service.delete(+id);
   }
 }

@@ -8,7 +8,6 @@ import { APP_GUARD } from '@nestjs/core';
 // Modules
 import { AgentsModule } from './agents/agents.module';
 import { KnowledgeBaseModule } from './knowledge-base/knowledge-base.module';
-// import { CategoriesModule } from './categories/categories.module';
 import { ReportsModule } from './reports/reports.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
@@ -44,7 +43,6 @@ import { SessionSerializer } from './auth/session.serializer';
     // All THE APP MODULES
     AgentsModule,
     KnowledgeBaseModule,
-    CategoriesModule,
     ReportsModule,
     UsersModule,
     AuthModule,

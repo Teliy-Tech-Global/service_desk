@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthController } from './auth.controller';
@@ -11,10 +11,11 @@ import OAuth2Strategy from 'passport-oauth2';
 @Module({
   imports: [
     PassportModule.register({ session: true }),
-    UsersModule,
-    TypeOrmModule.forFeature([User]), // ✅ Needed for UserRepository injection
+    forwardRef(() => UsersModule), // ✅ Circular dependency fix
+    TypeOrmModule.forFeature([User]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, OAuth2Strategy, SessionSerializer], // ✅ Add serializer here
+  providers: [AuthService, OAuth2Strategy, SessionSerializer],
+  exports: [AuthService], // ✅ Exported if UsersService needs it
 })
 export class AuthModule {}
