@@ -1,6 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Role } from '../../auth/roles/roles.enum';
-import { Article } from 'src/knowledge-base/articles/entities/article.entity';
+// import { Article } from 'src/knowledge-base/articles/entities/article.entity';
+import { Article } from '../../knowledge-base/articles/entities/article.entity';
+//import { Article } from 'desk/src/knowledge-base/articles/article.entity';
 import { Ticket } from 'src/tickets/entities/ticket.entity';
 import { Agent } from 'src/agents/entities/agent.entity';
 
