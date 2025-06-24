@@ -11,7 +11,6 @@ export class AuthService {
     @InjectRepository(User)
     private readonly usersRepo: Repository<User>,
   ) {}
-
   async validateOAuthLogin(profile: any): Promise<User> {
     const email =
       profile?.email || profile?.emails?.[0]?.value || profile?._json?.email;
