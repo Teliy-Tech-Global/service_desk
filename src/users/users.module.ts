@@ -6,12 +6,9 @@ import { UsersController } from './users.controller';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [
-    forwardRef(() => AuthModule), // ✅ Circular dependency fix
-    TypeOrmModule.forFeature([User]),
-  ],
+  imports: [forwardRef(() => AuthModule), TypeOrmModule.forFeature([User])],
   providers: [UsersService],
   controllers: [UsersController],
-  exports: [UsersService, TypeOrmModule],
+  exports: [UsersService],
 })
 export class UsersModule {}
