@@ -3,12 +3,12 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-oauth2';
 import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
+import axios from 'axios';
 
 @Injectable()
 export class OAuthStrategy extends PassportStrategy(Strategy, 'oauth') {
   constructor(private readonly configService: ConfigService) {
     super({
-      // These must be defined in your environment or config
       authorizationURL: configService.get<string>('OAUTH_AUTH_URL')!,
       tokenURL: configService.get<string>('OAUTH_TOKEN_URL')!,
       clientID: configService.get<string>('OAUTH_CLIENT_ID')!,
@@ -18,23 +18,34 @@ export class OAuthStrategy extends PassportStrategy(Strategy, 'oauth') {
     });
   }
 
-  // This method is called when OAuth2 login is successful
   async validate(
     req: Request,
     accessToken: string,
     refreshToken: string,
-    profile: any,
+    params: any, // token response
+    profile: any, // undefined unless fetched manually
     done: Function,
   ): Promise<any> {
-    // Extract user info from profile or token
-    const user = {
-      accessToken,
-      refreshToken,
-      profile,
-    };
+    try {
+      // Manually fetch Google user profile
+      const { data } = await axios.get(
+        'https://www.googleapis.com/oauth2/v2/userinfo',
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
 
-    // You can fetch or create the user in your DB here
+      const user = {
+        accessToken,
+        refreshToken,
+        profile: data, // Contains email, name, etc.
+      };
 
-    return done(null, user);
+      done(null, user);
+    } catch (error) {
+      done(error, false);
+    }
   }
 }

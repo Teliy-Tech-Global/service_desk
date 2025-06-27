@@ -14,6 +14,9 @@ export class Agent {
   id: number;
 
   @Column()
+  fullName: string;
+
+  @Column()
   userId: number; // Foreign Key reference to Users table
 
   @Column()

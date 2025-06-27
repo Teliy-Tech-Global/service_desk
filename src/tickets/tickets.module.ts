@@ -10,6 +10,6 @@ import { TicketController } from './tickets.controller';
   providers: [TicketService],
   exports: [TicketService],
 })
-export class TicketModule {}
+export class TicketsModule {}
 // This module defines the TicketModule, which is responsible for managing tickets in the system.
 // It imports the TypeOrmModule to work with the Ticket entity, and provides the TicketService and TicketController.

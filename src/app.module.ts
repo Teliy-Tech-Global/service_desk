@@ -11,7 +11,7 @@ import { KnowledgeBaseModule } from './knowledge-base/knowledge-base.module';
 import { ReportsModule } from './reports/reports.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { TicketModule } from './tickets/tickets.module';
+import { TicketsModule } from './tickets/tickets.module';
 import { CommentsModule } from './comments/comments.module';
 import { AttachmentsModule } from './attachments/attachments.module';
 
@@ -46,7 +46,7 @@ import { SessionSerializer } from './auth/session.serializer';
     ReportsModule,
     UsersModule,
     AuthModule,
-    TicketModule,
+    TicketsModule,
     CommentsModule,
     AttachmentsModule,
   ],

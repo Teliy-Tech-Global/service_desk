@@ -63,5 +63,7 @@ export class Ticket {
   attachments: Attachment[];
   user: any;
 }
+
+export { TicketStatus };
 // This Ticket entity represents a support ticket in the system.
 // It includes fields for the ticket's title, description, status, priority, creation and update timestamps,
