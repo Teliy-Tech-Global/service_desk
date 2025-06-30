@@ -7,8 +7,7 @@ import {
   ApiQuery,
   ApiOkResponse,
 } from '@nestjs/swagger';
-import { AgentPerformance } from './interfaces/agent-performance.interface';
-import { TicketSummary } from './interfaces/ticket-summary.interface';
+import { TicketSummaryDto } from './dto/ticket-summary.dto';
 
 @ApiTags('Reports') // Tag for grouping endpoints in Swagger UI
 @Controller('api/reports')
@@ -19,7 +18,7 @@ export class ReportsController {
   @ApiOperation({ summary: 'Get summary of all tickets' })
   @ApiOkResponse({
     description: 'Returns overall ticket statistics.',
-    type: [TicketSummary], // You may define this as a class if you want it to show up nicely
+    type: TicketSummaryDto,
   })
   getTicketSummary() {
     return this.reportsService.getTicketSummary();
