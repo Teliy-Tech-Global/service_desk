@@ -6,16 +6,12 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Role } from '../auth/roles/roles.enum';
-import { Inject, forwardRef } from '@nestjs/common';
-import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepo: Repository<User>,
-    @Inject(forwardRef(() => AuthService))
-    private authService: AuthService,
   ) {}
 
   async create(data: CreateUserDto) {

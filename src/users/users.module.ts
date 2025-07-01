@@ -9,6 +9,9 @@ import { AuthModule } from '../auth/auth.module';
   imports: [forwardRef(() => AuthModule), TypeOrmModule.forFeature([User])],
   providers: [UsersService],
   controllers: [UsersController],
-  exports: [UsersService],
+  exports: [
+    UsersService,
+    TypeOrmModule, // ✅ Export this so AuthModule can reuse User repo
+  ],
 })
 export class UsersModule {}
